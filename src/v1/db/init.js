@@ -1,6 +1,10 @@
 import mongoose from "mongoose";
-
-const connection = `mongodb://localhost:27017:tipJS`;
+import { countConnections } from "./../helper/CheckConnections.js";
+import defaultConfig from ".././config/config.db.js";
+const {
+  db: { url, name, port },
+} = defaultConfig;
+const connection = `mongodb://${url}:${port}/${name}`;
 //singleton
 class Database {
   constructor() {
@@ -13,7 +17,10 @@ class Database {
     }
     mongoose
       .connect(connection)
-      .then((_) => console.log("Connect Success"))
+      .then((_) => {
+        console.log("Connect Successfully ");
+        countConnections();
+      })
       .catch((_) => console.log("Connect Failed"));
   }
   static getInstance() {
@@ -23,5 +30,4 @@ class Database {
     return Database.instance;
   }
 }
-const instance = Database.getInstance();
-export default instance;
+export default Database;
