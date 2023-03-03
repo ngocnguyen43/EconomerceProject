@@ -1,2 +1,9 @@
 ### signup
 POST http://localhost:4343/api/v1/shop/signup
+
+Content-Type: application/json
+{
+    "name":"test shop",
+    "email":"minhngoc@gmail.com",
+    "password":123456
+}
