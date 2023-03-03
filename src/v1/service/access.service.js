@@ -22,13 +22,13 @@ class AccessService {
         };
       }
       const hashedPassword = await bcrypt.hash(password, 10);
-      const newShop = shopModel.create({
-        name,
-        email,
+      const newShop = await shopModel.create({
+        name: name,
+        email: email,
         password: hashedPassword,
         roles: [ROLES.SHOP],
       });
-      console.log(newShop._id);
+      console.log(newShop);
       if (newShop) {
         //private key(sign) + public key (verify)
         const { privateKey, publicKey } = crypto.generateKeyPairSync("rsa", {
